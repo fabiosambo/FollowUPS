@@ -142,6 +142,9 @@ const App: React.FC = () => {
     // Special Case: Excluded view shows ONLY excluded items
     if (view === 'EXCLUIDOS') return excludedItems;
 
+    // Special Case: Follow Up view shows Critical + Alerta
+    if (view === 'FOLLOW_UP') return activeItems.filter(item => item.status === ImportStatus.CRITICO || item.status === ImportStatus.ALERTA);
+
     // General Views show ONLY active items
     if (view === 'ALL') return activeItems;
     
@@ -152,9 +155,10 @@ const App: React.FC = () => {
   const getTableTitle = () => {
     switch (view) {
       case 'ALL': return 'Todos os Itens';
+      case 'FOLLOW_UP': return 'Atenção Necessária (Crítico & Alerta)';
       case ImportStatus.ATRASADO: return 'Itens Importados - Atrasados';
-      case ImportStatus.CRITICO: return 'Itens Importados - Críticos (<35 dias)';
-      case ImportStatus.ALERTA: return 'Itens Importados - Alerta Follow-up (35-60 dias)';
+      case ImportStatus.CRITICO: return 'Itens Importados - Críticos (<45 dias)';
+      case ImportStatus.ALERTA: return 'Itens Importados - Alerta Follow-up (45-60 dias)';
       case ImportStatus.PRODUCAO: return 'Itens Importados - Em Produção';
       case ImportStatus.EMBARCADO: return 'Histórico de Embarcados';
       case ImportStatus.NACIONAL: return 'Itens Nacionais (Sem Follow-up)';
@@ -185,9 +189,13 @@ const App: React.FC = () => {
           
           {/* Right Actions */}
           <div className="flex items-center gap-6">
-            <button className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
+            <button 
+              onClick={() => setView('FOLLOW_UP')}
+              className={`relative p-2 transition-colors rounded-lg ${view === 'FOLLOW_UP' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-200/50'}`}
+              title="Ver itens com atenção necessária"
+            >
                <Bell size={20} />
-               {stats.followUpNeeded > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>}
+               {stats.followUpNeeded > 0 && <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#F3F4F6]"></span>}
             </button>
             
             <div className="h-8 w-px bg-gray-300 mx-2"></div>

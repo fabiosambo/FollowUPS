@@ -34,4 +34,4 @@ export interface DashboardStats {
   followUpNeeded: number;
 }
 
-export type ViewState = 'HOME' | 'ALL' | 'EXCLUIDOS' | ImportStatus;
+export type ViewState = 'HOME' | 'ALL' | 'EXCLUIDOS' | 'FOLLOW_UP' | ImportStatus;

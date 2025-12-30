@@ -65,8 +65,8 @@ export const removeExcludedItem = (id: string) => {
 // Calculate status based on rules (Imported items only)
 export const calculateStatus = (daysDiff: number): ImportStatus => {
   if (daysDiff < 0) return ImportStatus.ATRASADO;
-  if (daysDiff < 30) return ImportStatus.CRITICO; // Rule: 0 <= Days < 30 (Updated per user request)
-  if (daysDiff <= 60) return ImportStatus.ALERTA; // Rule: 30 <= Days <= 60
+  if (daysDiff < 45) return ImportStatus.CRITICO; // Rule: 0 <= Days < 45 (Updated: expanded from 30)
+  if (daysDiff <= 60) return ImportStatus.ALERTA; // Rule: 45 <= Days <= 60
   return ImportStatus.PRODUCAO; // Rule: Days > 60
 };
 

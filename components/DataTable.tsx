@@ -142,8 +142,8 @@ const DataTable: React.FC<Props> = ({ items, onMarkShipped, onUnmarkShipped, onE
 
     let colorClass = 'bg-blue-400';
     if (days < 0) colorClass = 'bg-red-500';
-    else if (days < 30) colorClass = 'bg-orange-500';
-    else if (days < 60) colorClass = 'bg-yellow-400';
+    else if (days < 45) colorClass = 'bg-orange-500'; // Match Critical < 45
+    else if (days < 60) colorClass = 'bg-yellow-400'; // Match Alert < 60
 
     return { width: `${Math.max(5, percentage)}%`, colorClass };
   };
